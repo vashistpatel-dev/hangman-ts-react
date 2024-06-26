@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import words from "./wordList.json";
 import { HangmanDrawing } from "./Components/HangmanDrawing";
 import { HangmanWord } from "./Components/HangmanWord";
@@ -6,13 +6,19 @@ import { Keybaord } from "./Components/Keyboard";
 
 function App() {
   const [wordToGuess, setWordtoGuess] = useState(() => {
-    return words[Math.floor(Math.random() * words.length)];
+    const tempWord = words[Math.floor(Math.random() * words.length)];
+    // console.log(tempWord);
+    return tempWord;
   });
   const [guessedLetters, setGuessedLetters] = useState<string[]>([]);
   const inCorrectLetters = guessedLetters.filter(
-    //Gets all letter that were guessed and NOT part of the word
+    //Gets all letters that were guessed and NOT part of the word.
+    //Takes all guessed letters (guessedLetters), filters out letters from it which are part of the "word" (wordToGuess),
+    // you end up with all the letters which were incorrectly guessed.
     (letter) => !wordToGuess.includes(letter)
   );
+
+  // useEffect;
 
   return (
     <div // Main <div>
@@ -27,8 +33,8 @@ function App() {
     >
       <div style={{ fontSize: "2rem", textAlign: "center" }}>Lose Win</div>
 
-      <HangmanDrawing />
-      <HangmanWord />
+      <HangmanDrawing numberOfGuesses={inCorrectLetters.length} />
+      <HangmanWord guessedLetters={guessedLetters} wordToGuess={wordToGuess} />
 
       <div style={{ alignSelf: "stretch" }}>
         <Keybaord />

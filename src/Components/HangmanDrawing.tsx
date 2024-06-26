@@ -85,15 +85,18 @@ const LEFT_LEG = (
   ></div>
 );
 
-export function HangmanDrawing() {
+const BODY_PARTS = [HEAD, BODY, RIGHT_ARM, LEFT_ARM, RIGHT_ARM, RIGHT_LEG];
+
+type HangmanDrawingProps = {
+  numberOfGuesses: number;
+};
+
+export function HangmanDrawing({ numberOfGuesses }: HangmanDrawingProps) {
   return (
     <div style={{ position: "relative" }}>
-      {BODY}
-      {HEAD}
-      {RIGHT_ARM}
-      {LEFT_ARM}
-      {RIGHT_LEG}
-      {LEFT_LEG}
+      {/* Takes the total number of incorrect letters (numberOfGuesses) and prints that many body parts */}
+      {BODY_PARTS.slice(0, numberOfGuesses)}
+
       {/* Short Vertical Line */}
       <div
         style={{
