@@ -53,7 +53,7 @@ function App() {
     };
   }, [guessedLetters]);
 
-  // Refresh by pressing ENTER and get a new word
+  // Refresh by pressing ENTER and get a new word, and setGuessedLetters to empty
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       const key = e.key;
